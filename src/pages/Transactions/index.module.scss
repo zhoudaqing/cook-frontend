@@ -1,0 +1,199 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .buttonWrap {
+    margin-top: 16px;
+    height: 80px;
+    width: 100%;
+    > div {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      .button {
+        font-size: 18px;
+        font-weight: bold;
+        color: #fffcf5;
+        outline: thick !important;
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &::before {
+          background-color: #070707;
+        }
+      }
+
+      .button.buttonActive {
+        color: #000000;
+
+        &::before {
+          background-color: #4aa24b;
+        }
+      }
+      .buttonLeft {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+      .buttonRight {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
+    }
+  }
+
+  .main {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 30px 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .leftPart {
+      .tabButton {
+        margin-right: 40px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fa624d;
+        border: 1px solid #fa624d;
+        border-radius: 5px;
+        outline: thick !important;
+        width: 100px;
+        height: 50px;
+        border-radius: 5px;
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &::before {
+          background-color: #000000;
+        }
+      }
+
+      .tabButton.activeTabButton {
+        color: #000000;
+        border: none;
+
+        &::before {
+          background-color: #4aa24b;
+        }
+      }
+
+      .inputRow {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+      }
+
+      .exeButton {
+        width: 260px;
+        height: 60px;
+        outline: thick !important;
+        border-radius: 10px;
+        font-size: 24px;
+        font-weight: 400;
+        color: #000000;
+        text-shadow: 0px 0px 40px rgba(104, 255, 171, 0.4);
+
+        &::before {
+          background: #4aa24b;
+        }
+      }
+    }
+
+    .rightPart {
+      position: relative;
+      padding: 16px 60px;
+      box-sizing: border-box;
+      margin-left: 65px;
+      background: #070707;
+      border: 1px solid #0d0e10;
+      border-radius: 5px;
+      font-size: 24px;
+      font-weight: 400;
+      color: #ffffff;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      min-height: 490px;
+
+      .zero {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 490px;
+      }
+
+      .tableWrap {
+        width: 100%;
+        table {
+          width: 100%;
+          border-color: rgba(32, 34, 37, 1);
+
+          thead {
+            height: 60px;
+            font-size: 24px;
+            font-weight: 400;
+            color: #ffffff;
+            opacity: 0.5;
+            background-color: rgba(34, 43, 46, 1);
+          }
+
+          tbody tr {
+            height: 60px;
+            font-size: 24px;
+            font-weight: 400;
+            color: #ffffff;
+          }
+        }
+      }
+
+      .bottomTips {
+        margin-top: 12px;
+        height: 20px;
+        font-size: 18px;
+        font-weight: 400;
+        text-decoration: underline;
+        color: #ff436f;
+        opacity: 0.5;
+      }
+
+      .bottomButton {
+        margin-top: 90px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .withdrawBit {
+        font-size: 24px;
+        font-weight: 400;
+        color: #000000;
+        text-shadow: 0px 0px 40px rgba(104, 255, 171, 0.4);
+        width: 260px;
+        height: 60px;
+        border-radius: 10px;
+        outline: thick !important;
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &::before {
+          background-color: #4aa24b;
+        }
+      }
+    }
+  }
+}

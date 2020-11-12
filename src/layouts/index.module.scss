@@ -1,0 +1,53 @@
+.header {
+  height: 90px;
+  padding: 0 160px 0 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    .text {
+      font-size: 48px;
+      font-weight: bold;
+      color: #fffcf5;
+    }
+  }
+
+  .user {
+    padding: 0 28px;
+    width: 225px;
+    height: 50px;
+    border: 1px solid #4aa24b;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      width: 120px;
+      font-size: 18px;
+      font-weight: 400;
+      color: #fffcf5;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      word-break: break-all;
+    }
+  }
+}
+
+.main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100vh - 90px);
+  overflow: auto;
+}
