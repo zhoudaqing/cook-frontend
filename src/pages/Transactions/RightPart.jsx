@@ -1,8 +1,9 @@
 import styles from "./index.module.scss";
 import React from "react";
 import { Button, Table } from "rimble-ui";
+import { formatNum } from "../../utils/utils";
 
-const RightPart = ({ listDatas }) => {
+const RightPart = ({ operate, listDatas }) => {
   // 提取代币
   const withdraw = () => {
     console.log("提取COMP代币");
@@ -19,13 +20,13 @@ const RightPart = ({ listDatas }) => {
       {listDatas.remainingBalance.value != 0 && (
         <div className={styles.tableWrap}>
           <div style={{ marginBottom: 20 }}>
-            余额：${listDatas.remainingBalance.value}{" "}
+            余额：${formatNum(listDatas.remainingBalance.value)}
           </div>
           <Table>
             <thead>
               <tr>
-                <th>资产</th>
-                <th>数量</th>
+                <th width="20%">资产</th>
+                <th width="25%">数量</th>
                 <th>价值（$)</th>
               </tr>
             </thead>
@@ -36,7 +37,7 @@ const RightPart = ({ listDatas }) => {
                     <tr key={index}>
                       <td>{asset}</td>
                       <td>{count}</td>
-                      <td>{value}</td>
+                      <td>{formatNum(value)}</td>
                     </tr>
                   );
                 }
@@ -47,14 +48,15 @@ const RightPart = ({ listDatas }) => {
       )}
       {listDatas.borrowing.value != 0 && (
         <div className={styles.tableWrap} style={{ marginTop: 60 }}>
-          <div style={{ marginBottom: 20 }}>
-            借贷：${listDatas.borrowing.value}{" "}
+          <div className={styles.borrowingHeader}>
+            <span>借贷：${formatNum(listDatas.borrowing.value)}</span>
+            <span>借贷限额：${formatNum(listDatas.borrowing.quota)}</span>
           </div>
           <Table>
             <thead>
               <tr>
-                <th>资产</th>
-                <th>数量</th>
+                <th width="20%">资产</th>
+                <th width="25%">数量</th>
                 <th>价值（$)</th>
                 <th>年利息</th>
               </tr>
@@ -66,7 +68,7 @@ const RightPart = ({ listDatas }) => {
                     <tr key={index}>
                       <td>{asset}</td>
                       <td>{count}</td>
-                      <td>{value}</td>
+                      <td>{formatNum(value)}</td>
                       <td>{interest}</td>
                     </tr>
                   );
@@ -83,7 +85,12 @@ const RightPart = ({ listDatas }) => {
       )}
       {listDatas.borrowing.value != 0 && (
         <div className={styles.bottomButton}>
-          <Button className={styles.withdrawBit} onClick={withdraw}>
+          <Button
+            className={`${styles.withdrawBit} ${
+              operate === "short" ? styles.withdrawBitEnable : ""
+            }`}
+            onClick={withdraw}
+          >
             提取COMP代币
           </Button>
         </div>

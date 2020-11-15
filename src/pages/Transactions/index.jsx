@@ -8,7 +8,7 @@ import RightPart from "./RightPart";
 // mock 列表模拟数据
 const tableDatas = {
   remainingBalance: {
-    value: 30800,
+    value: 30800, // 余额
     list: [
       // 余额
       {
@@ -24,7 +24,8 @@ const tableDatas = {
     ],
   },
   borrowing: {
-    value: 30800,
+    value: 20400, // 借贷
+    quota: 22500, // 借贷限额
     list: [
       // 借贷
       {
@@ -47,6 +48,7 @@ const tableDatas = {
 
 const Transactions = () => {
   const [type, setType] = useState("openLever"); // 开杠杆（openLever） or 偿还（payBack）
+  const [operate, setOperate] = useState("long"); // 做多(long) or 做空(short)
   const [listData, setListData] = useState({
     remainingBalance: {
       value: 0,
@@ -67,7 +69,11 @@ const Transactions = () => {
         <div>
           <Button
             className={`${styles.button} ${styles.buttonLeft} ${
-              type === "openLever" ? styles.buttonActive : ""
+              type === "openLever"
+                ? operate === "short"
+                  ? styles.buttonEnable
+                  : styles.buttonActive
+                : ""
             }`}
             width={300}
             onClick={() => {
@@ -91,12 +97,17 @@ const Transactions = () => {
       </div>
       <div className={styles.main}>
         {type === "openLever" && (
-          <OpenLeverLeftPart type={type} onSubmit={onSubmit} />
+          <OpenLeverLeftPart
+            type={type}
+            operate={operate}
+            setOperate={setOperate}
+            onSubmit={onSubmit}
+          />
         )}
         {type === "payBack" && (
           <PayBackLeftPart type={type} onSubmit={onSubmit} />
         )}
-        <RightPart listDatas={listData} />
+        <RightPart operate={operate} listDatas={listData} />
       </div>
     </div>
   );

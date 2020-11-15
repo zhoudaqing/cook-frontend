@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { Button, Input } from "rimble-ui";
 import { Select } from "rimble-ui";
 
-const OpenLeverLeftPart = ({ type, onSubmit }) => {
-  const [operate, setOperate] = useState("long"); // 做多(long) or 做空(short)
+const OpenLeverLeftPart = ({ type, operate, setOperate, onSubmit }) => {
   const [currencyType, setCurrencyType] = useState("BTC"); //  货币类型下拉框值: BTC or DAI
   const [mortgage, setMortgage] = useState("0.0"); // 抵押 or 用 输入框值
   const [forLong, setForLong] = useState("0.0"); // 做多 or 做空 or 还输入框值
@@ -44,7 +43,7 @@ const OpenLeverLeftPart = ({ type, onSubmit }) => {
       <div>
         <Button
           className={`${styles.tabButton} ${
-            operate === "long" ? styles.activeTabButton : ""
+            operate === "long" ? styles.activeTabButton : styles.enableTabButton
           }`}
           width={300}
           onClick={() => {
@@ -120,7 +119,12 @@ const OpenLeverLeftPart = ({ type, onSubmit }) => {
         />
         <span>{currencyType}</span>
       </div>
-      <Button className={styles.exeButton} onClick={submit}>
+      <Button
+        className={`${styles.exeButton} ${
+          operate === "short" ? styles.exeEnableButton : ""
+        }`}
+        onClick={submit}
+      >
         执行
       </Button>
     </div>

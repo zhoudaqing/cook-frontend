@@ -36,6 +36,16 @@
           background-color: #4aa24b;
         }
       }
+
+      .button.buttonEnable {
+        border: 1px solid #fa624d;
+        color: #fa624d;
+
+        &::before {
+          background-color: #000000;
+        }
+      }
+
       .buttonLeft {
         border-bottom-right-radius: 0;
         border-top-right-radius: 0;
@@ -88,10 +98,25 @@
         }
       }
 
+      .tabButton.enableTabButton {
+        color: #4aa24b;
+        border: 1px solid #4aa24b;
+
+        &::before {
+          background-color: #000000;
+        }
+      }
+
       .inputRow {
         font-size: 24px;
         font-weight: bold;
         color: #ffffff;
+
+        input:focus {
+          // outline: none;
+          color: #ffffff;
+          border-color: #fff;
+        }
       }
 
       .exeButton {
@@ -107,6 +132,24 @@
         &::before {
           background: #4aa24b;
         }
+      }
+
+      .exeButton.exeEnableButton {
+        border: 1px solid #fa624d;
+        color: #fa624d;
+
+        &::before {
+          background-color: #000000;
+        }
+      }
+
+      svg {
+        color: #fff;
+      }
+
+      select:focus {
+        // outline: none;
+        border-color: #fff;
       }
     }
 
@@ -159,6 +202,14 @@
             color: #ffffff;
           }
         }
+
+        .borrowingHeader {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+        }
       }
 
       .bottomTips {
@@ -192,6 +243,15 @@
 
         &::before {
           background-color: #4aa24b;
+        }
+      }
+
+      .withdrawBit.withdrawBitEnable {
+        border: 1px solid #fa624d;
+        color: #fa624d;
+
+        &::before {
+          background-color: #000000;
         }
       }
     }
