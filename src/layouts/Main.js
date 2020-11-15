@@ -1,19 +1,19 @@
 import React from "react";
 import styles from "./index.module.scss";
-import { MoneyOff } from '@rimble/icons';
 import { Avatar } from "rimble-ui";
+import logo from '../img/logo.webp';
 
 function Main({ children }) {
   return (
     <>
       <div className={styles.header}>
-        <div className={styles.logo}>
-          <MoneyOff color="#fff" size={40} />
+        <div className={styles.logoWrap}>
+          <img src={logo} alt="Logo" className={styles.logo} />
           <span className={styles.text}>Cook</span>
         </div>
         <div className={styles.user}>
           <span>GCK48...GCK</span>
-          <Avatar />
+          <Avatar src="" />
         </div>
       </div>
       <div className={styles.main}>

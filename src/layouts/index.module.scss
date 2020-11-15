@@ -6,11 +6,17 @@
   justify-content: space-between;
   align-items: center;
 
-  .logo {
+  .logoWrap {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
 
     .text {
       font-size: 48px;
@@ -54,7 +60,7 @@
 
 @media (max-width: 600px) {
   .header {
-    padding: 0;
+    padding: 0 10px;
 
     .user {
       min-width: 120px;
