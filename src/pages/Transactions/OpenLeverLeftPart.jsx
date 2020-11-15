@@ -5,8 +5,8 @@ import { Select } from "rimble-ui";
 
 const OpenLeverLeftPart = ({ type, operate, setOperate, onSubmit }) => {
   const [currencyType, setCurrencyType] = useState("BTC"); //  货币类型下拉框值: BTC or DAI
-  const [mortgage, setMortgage] = useState("0.0"); // 抵押 or 用 输入框值
-  const [forLong, setForLong] = useState("0.0"); // 做多 or 做空 or 还输入框值
+  const [mortgage, setMortgage] = useState(""); // 抵押 or 用 输入框值
+  const [forLong, setForLong] = useState(""); // 做多 or 做空 or 还输入框值
 
   // 货币类型下拉列表值变化
   const onCurrencyTypeChange = (e) => {
@@ -94,6 +94,7 @@ const OpenLeverLeftPart = ({ type, operate, setOperate, onSubmit }) => {
           border="1"
           borderColor="rgba(255, 255, 255, 0.1)"
           borderRadius={5}
+          placeholder="0.0"
           onChange={onMortgageChange}
           value={mortgage}
         />
@@ -114,6 +115,7 @@ const OpenLeverLeftPart = ({ type, operate, setOperate, onSubmit }) => {
           border="1"
           borderColor="rgba(255, 255, 255, 0.1)"
           borderRadius={5}
+          placeholder="0.0"
           onChange={onForLongChange}
           value={forLong}
         />

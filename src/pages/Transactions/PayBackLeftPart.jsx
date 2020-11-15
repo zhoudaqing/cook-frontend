@@ -10,9 +10,9 @@ const coinType = [
 ];
 
 const PayBackLeftPart = ({ type, onSubmit }) => {
-  const [value1, setValue1] = useState("0.0"); // 用
+  const [value1, setValue1] = useState(""); // 用
   const [unit1, setUnit1] = useState("BTC"); //  货币类型下拉框值: BTC or DAI
-  const [value2, setValue2] = useState("0.0"); // 还
+  const [value2, setValue2] = useState(""); // 还
   const [unit2, setUnit2] = useState("BTC"); //  货币类型下拉框值: BTC or DAI
 
   // 用
@@ -66,6 +66,7 @@ const PayBackLeftPart = ({ type, onSubmit }) => {
           border="1"
           borderColor="rgba(255, 255, 255, 0.1)"
           borderRadius={5}
+          placeholder="0.0"
           onChange={onValue1Change}
           value={value1}
         />
@@ -97,6 +98,7 @@ const PayBackLeftPart = ({ type, onSubmit }) => {
           border="1"
           borderColor="rgba(255, 255, 255, 0.1)"
           borderRadius={5}
+          placeholder="0.0"
           onChange={onValue2Change}
           value={value2}
         />

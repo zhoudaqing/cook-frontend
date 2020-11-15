@@ -26,7 +26,7 @@ const RightPart = ({ operate, listDatas }) => {
             <thead>
               <tr>
                 <th width="20%">资产</th>
-                <th width="25%">数量</th>
+                <th width="23%">数量</th>
                 <th>价值（$)</th>
               </tr>
             </thead>
@@ -56,7 +56,7 @@ const RightPart = ({ operate, listDatas }) => {
             <thead>
               <tr>
                 <th width="20%">资产</th>
-                <th width="25%">数量</th>
+                <th width="23%">数量</th>
                 <th>价值（$)</th>
                 <th>年利息</th>
               </tr>

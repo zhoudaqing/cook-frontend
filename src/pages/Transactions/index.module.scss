@@ -69,6 +69,8 @@
     align-items: flex-start;
 
     .leftPart {
+      min-width: 492px;
+      width: 492px;
       .tabButton {
         margin-right: 40px;
         font-size: 18px;
@@ -252,6 +254,39 @@
 
         &::before {
           background-color: #000000;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .content {
+    margin: 8px;
+
+    .main {
+      padding: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      .leftPart {
+        min-width: 492px;
+        width: auto;
+
+        .inputRow {
+          input {
+            width: 50%;
+          }
+        }
+      }
+
+      .rightPart {
+        padding: 0;
+        margin: 32px 0 0 0;
+
+        .bottomButton {
+          text-align: left;
         }
       }
     }

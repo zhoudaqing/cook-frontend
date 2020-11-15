@@ -21,7 +21,7 @@
 
   .user {
     padding: 0 28px;
-    width: 225px;
+    min-width: 225px;
     height: 50px;
     border: 1px solid #4aa24b;
     border-radius: 10px;
@@ -50,4 +50,15 @@
   bottom: 0;
   height: calc(100vh - 90px);
   overflow: auto;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 0;
+
+    .user {
+      min-width: 120px;
+      margin-left: 8px;
+    }
+  }
 }

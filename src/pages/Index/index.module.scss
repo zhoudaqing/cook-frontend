@@ -45,3 +45,18 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .content {
+    margin: 8px;
+    height: auto;
+
+    .buttonWrap {
+      flex-direction: column;
+
+      .button {
+        margin-bottom: 32px;
+      }
+    }
+  }
+}

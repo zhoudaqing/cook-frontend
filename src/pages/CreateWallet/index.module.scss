@@ -25,3 +25,13 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .content {
+    margin: 8px;
+
+    .button {
+      width: 90%;
+    }
+  }
+}
