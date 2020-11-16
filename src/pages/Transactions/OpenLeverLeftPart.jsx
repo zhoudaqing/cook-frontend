@@ -54,7 +54,7 @@ const OpenLeverLeftPart = ({ type, operate, setOperate, onSubmit }) => {
         </Button>
         <Button
           className={`${styles.tabButton} ${
-            operate === "short" ? styles.activeTabButton : ""
+            operate === "short" ? styles.activeShortTabButton : ""
           }`}
           width={300}
           onClick={() => {

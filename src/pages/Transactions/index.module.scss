@@ -109,6 +109,15 @@
         }
       }
 
+      .tabButton.activeShortTabButton {
+        color: #000000;
+        border: 1px solid #fa624d;
+
+        &::before {
+          background-color: #fa624d;
+        }
+      }
+
       .inputRow {
         font-size: 24px;
         font-weight: bold;
