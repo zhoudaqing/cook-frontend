@@ -2,12 +2,23 @@ import styles from "./index.module.scss";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Button, MetaMaskButton } from "rimble-ui";
+import {useStateValue} from "../../contexts";
 
 const Index = () => {
   const history = useHistory();
+  const {connectAndValidateAccount} = useStateValue();
 
   const onButtonClick = () => {
-    history.push("/createWallet");
+    connectAndValidateAccount(result => {
+      if (result === "success") {
+        // success
+        console.log("Callback SUCCESS");
+      } else if (result === "error") {
+        // error
+        console.log("Callback ERROR");
+      }
+    });
+    // history.push("/createWallet");
   };
 
   return (
