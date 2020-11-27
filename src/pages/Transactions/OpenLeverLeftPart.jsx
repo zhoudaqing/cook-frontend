@@ -1,40 +1,56 @@
 import styles from "./index.module.scss";
-import React, { useState } from "react";
-import { Button, Input } from "rimble-ui";
-import { Select } from "rimble-ui";
+import React, {useState} from "react";
+import {Button, Input} from "rimble-ui";
+import {Select} from "rimble-ui";
 
-const OpenLeverLeftPart = ({ type, operate, setOperate, onSubmit }) => {
-  const [currencyType, setCurrencyType] = useState("BTC"); //  货币类型下拉框值: BTC or DAI
-  const [mortgage, setMortgage] = useState(""); // 抵押 or 用 输入框值
-  const [forLong, setForLong] = useState(""); // 做多 or 做空 or 还输入框值
+const OpenLeverLeftPart = ({type, operate, setOperate, operateInfo, setOperateInfo, accountData, targetAccountData, setTargetAccountData, onSubmit}) => {
+  const [asset, setAsset] = useState("BTC"); //  货币类型下拉框值: BTC or DAI
+
+  const updatedTargetAccount = (newOperateInfo, asset) => {
+    let newAccountData = JSON.parse(JSON.stringify(accountData));
+    const collateral = newOperateInfo.collateral === "" ? 0 : parseFloat(newOperateInfo.collateral);
+    const leverage = newOperateInfo.leverage === "" ? 0 : parseFloat(newOperateInfo.leverage);
+    newAccountData.balance.assets[asset].count += collateral + leverage;
+    newAccountData.balance.value = 1;
+    newAccountData.debt.value = 1;
+    newAccountData.debt.assets[asset].count += leverage;
+    return newAccountData;
+  }
 
   // 货币类型下拉列表值变化
   const onCurrencyTypeChange = (e) => {
-    setCurrencyType(e.target.value);
+    setAsset(e.target.value);
+    setTargetAccountData(updatedTargetAccount(operateInfo, e.target.value));
   };
 
   // 抵押输入框值变更
-  const onMortgageChange = (e) => {
-    setMortgage(e.target.value);
+  const onCollateralChange = (e) => {
+    let newOperateInfo = {...operateInfo};
+    newOperateInfo.collateral = e.target.value;
+    setOperateInfo(newOperateInfo);
+    setTargetAccountData(updatedTargetAccount(newOperateInfo, asset));
   };
 
   // 做空 or 做多输入值变更
-  const onForLongChange = (e) => {
-    setForLong(e.target.value);
+  const onLeverageChange = (e) => {
+    let newOperateInfo = {...operateInfo};
+    newOperateInfo.leverage = e.target.value;
+    setOperateInfo(newOperateInfo);
+    setTargetAccountData(updatedTargetAccount(newOperateInfo, asset));
   };
 
   // 执行
   const submit = () => {
     console.log(
-      `type=${type};operate=${operate};currencyType=${currencyType};mortgage=${mortgage};forLong=${forLong}`
+      `type=${type};operate=${operate};currencyType=${asset};collateral=${operateInfo.collateral};leverage=${operateInfo.leverage}`
     );
 
     onSubmit({
       type,
       operate,
-      currencyType,
-      mortgage,
-      forLong,
+      currencyType: asset,
+      collateral: operateInfo.collateral,
+      leverage: operateInfo.leverage,
     });
   };
 
@@ -71,15 +87,15 @@ const OpenLeverLeftPart = ({ type, operate, setOperate, onSubmit }) => {
           border="1"
           borderColor="rgba(255, 255, 255, 0.1)"
           borderRadius={5}
-          value={currencyType}
+          value={asset}
           onChange={onCurrencyTypeChange}
           options={[
-            { value: "BTC", label: "BTC" },
-            { value: "DAI", label: "DAI" },
+            {value: "BTC", label: "BTC"},
+            {value: "ETH", label: "ETH"},
           ]}
         />
       </div>
-      <div className={styles.inputRow} style={{ margin: " 54px 0" }}>
+      <div className={styles.inputRow} style={{margin: " 54px 0"}}>
         <span>抵押</span>
         <Input
           ml={22}
@@ -95,12 +111,12 @@ const OpenLeverLeftPart = ({ type, operate, setOperate, onSubmit }) => {
           borderColor="rgba(255, 255, 255, 0.1)"
           borderRadius={5}
           placeholder="0.0"
-          onChange={onMortgageChange}
-          value={mortgage}
+          onChange={onCollateralChange}
+          value={operateInfo.collateral}
         />
-        <span>{currencyType}</span>
+        <span>{asset}</span>
       </div>
-      <div className={styles.inputRow} style={{ marginBottom: 54 }}>
+      <div className={styles.inputRow} style={{marginBottom: 54}}>
         <span>{operate === "long" ? "做多" : "做空"}</span>
         <Input
           ml={22}
@@ -116,10 +132,10 @@ const OpenLeverLeftPart = ({ type, operate, setOperate, onSubmit }) => {
           borderColor="rgba(255, 255, 255, 0.1)"
           borderRadius={5}
           placeholder="0.0"
-          onChange={onForLongChange}
-          value={forLong}
+          onChange={onLeverageChange}
+          value={operateInfo.leverage}
         />
-        <span>{currencyType}</span>
+        <span>{asset}</span>
       </div>
       <Button
         className={`${styles.exeButton} ${

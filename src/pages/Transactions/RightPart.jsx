@@ -3,24 +3,24 @@ import React from "react";
 import { Button, Table } from "rimble-ui";
 import { formatNum } from "../../utils/utils";
 
-const RightPart = ({ operate, listDatas }) => {
+const RightPart = ({ operate, targetAccountData }) => {
   // 提取代币
   const withdraw = () => {
     console.log("提取COMP代币");
   };
-
+  console.log(targetAccountData);
   return (
     <div className={styles.rightPart}>
-      {listDatas.remainingBalance.value == 0 && (
+      {targetAccountData.balance.value === 0 && (
         <div className={styles.zero}>
           <div style={{ marginBottom: 30 }}>余额：$0.0 </div>
           <div>借贷：$0.0 </div>
         </div>
       )}
-      {listDatas.remainingBalance.value != 0 && (
+      {targetAccountData.balance.value !== 0 && (
         <div className={styles.tableWrap}>
           <div style={{ marginBottom: 20 }}>
-            余额：${formatNum(listDatas.remainingBalance.value)}
+            余额：${formatNum(targetAccountData.balance.value)}
           </div>
           <Table>
             <thead>
@@ -31,26 +31,24 @@ const RightPart = ({ operate, listDatas }) => {
               </tr>
             </thead>
             <tbody>
-              {listDatas.remainingBalance.list.map(
-                ({ asset, count, value }, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{asset}</td>
-                      <td>{count}</td>
-                      <td>{formatNum(value)}</td>
-                    </tr>
-                  );
-                }
-              )}
+              {Object.keys(targetAccountData.balance.assets).map(asset => {
+                return (
+                  <tr key={asset}>
+                    <td>{asset}</td>
+                    <td>{targetAccountData.balance.assets[asset].count}</td>
+                    <td>{formatNum(targetAccountData.balance.assets[asset].value)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         </div>
       )}
-      {listDatas.borrowing.value != 0 && (
+      {targetAccountData.debt.value !== 0 && (
         <div className={styles.tableWrap} style={{ marginTop: 60 }}>
           <div className={styles.borrowingHeader}>
-            <span>借贷：${formatNum(listDatas.borrowing.value)}</span>
-            <span>借贷限额：${formatNum(listDatas.borrowing.quota)}</span>
+            <span>借贷：${formatNum(targetAccountData.debt.value)}</span>
+            <span>借贷限额：${formatNum(targetAccountData.debt.quota)}</span>
           </div>
           <Table>
             <thead>
@@ -62,28 +60,26 @@ const RightPart = ({ operate, listDatas }) => {
               </tr>
             </thead>
             <tbody>
-              {listDatas.borrowing.list.map(
-                ({ asset, count, value, interest }, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{asset}</td>
-                      <td>{count}</td>
-                      <td>{formatNum(value)}</td>
-                      <td>{interest}</td>
-                    </tr>
-                  );
-                }
-              )}
+              {Object.keys(targetAccountData.debt.assets).map(asset => {
+                return (
+                  <tr key={asset}>
+                    <td>{asset}</td>
+                    <td>{targetAccountData.debt.assets[asset].count}</td>
+                    <td>{formatNum(targetAccountData.debt.assets[asset].value)}</td>
+                    <td>{targetAccountData.debt.assets[asset].interest}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         </div>
       )}
-      {listDatas.borrowing.value != 0 && (
+      {targetAccountData.debt.value !== 0 && (
         <div className={styles.bottomTips}>
           *请注意当您借贷达到借贷限额时，会被平仓，请保留一定安全边际
         </div>
       )}
-      {listDatas.borrowing.value != 0 && (
+      {targetAccountData.debt.value !== 0 && (
         <div className={styles.bottomButton}>
           <Button
             className={`${styles.withdrawBit} ${

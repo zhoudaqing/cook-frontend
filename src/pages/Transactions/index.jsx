@@ -1,68 +1,88 @@
 import styles from "./index.module.scss";
-import React, { useState } from "react";
-import { Button } from "rimble-ui";
+import React, {useState} from "react";
+import {Button} from "rimble-ui";
 import OpenLeverLeftPart from "./OpenLeverLeftPart";
 import PayBackLeftPart from "./PayBackLeftPart";
 import RightPart from "./RightPart";
 
 // mock 列表模拟数据
 const tableDatas = {
-  remainingBalance: {
+  balance: {
     value: 30800, // 余额
-    list: [
-      // 余额
-      {
-        asset: "BTC", // 资产
-        count: 3, // 数量
-        value: 30000, //  价值
+    assets: {
+      "BTC": {
+        count: 3,
+        value: 3000,
       },
-      {
-        asset: "ETH", // 资产
-        count: 2, // 数量
-        value: 800, //  价值
-      },
-    ],
+      "ETH": {
+        count: 2,
+        value: 800
+      }
+    }
   },
-  borrowing: {
+  debt: {
     value: 20400, // 借贷
     quota: 22500, // 借贷限额
-    list: [
-      // 借贷
-      {
-        // 余额
-        asset: "BTC", // 资产
-        count: 3, // 数量
-        value: 30000, //  价值
-        interest: "3.91%",
+    assets: {
+      "BTC": {
+        count: 3,
+        value: 30000,
+        interest: "3.91%"
       },
-      {
-        // 余额
-        asset: "ETH", // 资产
-        count: 1, // 数量
-        value: 400, //  价值
-        interest: "2.9%",
-      },
-    ],
+      "ETH": {
+        count: 1,
+        value: 400,
+        interest: "2.9%"
+      }
+    }
   },
 };
 
 const Transactions = () => {
   const [type, setType] = useState("openLever"); // 开杠杆（openLever） or 偿还（payBack）
   const [operate, setOperate] = useState("long"); // 做多(long) or 做空(short)
-  const [listData, setListData] = useState({
-    remainingBalance: {
-      value: 0,
+  const [operateInfo, setOperateInfo] = useState({
+    collateral: 0,
+    leverage: 0
+  });
+  const [accountData, setAccountData] = useState({
+    balance: {
+      value: 0, // 余额
+      assets: {
+        "BTC": {
+          count: 0,
+          value: 0,
+        },
+        "ETH": {
+          count: 0,
+          value: 0
+        }
+      }
     },
-    borrowing: {
-      value: 0,
-    }, // 借贷
+    debt: {
+      value: 0, // 借贷
+      quota: 0, // 借贷限额
+      assets: {
+        "BTC": {
+          count: 0,
+          value: 0,
+          interest: "3.91%"
+        },
+        "ETH": {
+          count: 0,
+          value: 0,
+          interest: "2.9%"
+        }
+      }
+    },
   }); // 右边列表余额、借贷
+  const [targetAccountData, setTargetAccountData] = useState(JSON.parse(JSON.stringify(accountData)));
 
   // 执行回调
   const onSubmit = (params) => {
-    setListData(tableDatas); // 更新右侧列表数据
+    setAccountData(tableDatas); // 更新右侧列表数据
   };
-
+  // console.log(targetAccountData);
   return (
     <div className={styles.content}>
       <div className={styles.buttonWrap}>
@@ -71,8 +91,8 @@ const Transactions = () => {
             className={`${styles.button} ${styles.buttonLeft} ${
               type === "openLever"
                 ? operate === "short"
-                  ? styles.buttonEnable
-                  : styles.buttonActive
+                ? styles.buttonEnable
+                : styles.buttonActive
                 : ""
             }`}
             width={300}
@@ -101,13 +121,18 @@ const Transactions = () => {
             type={type}
             operate={operate}
             setOperate={setOperate}
+            operateInfo={operateInfo}
+            setOperateInfo={setOperateInfo}
+            accountData={accountData}
+            targetAccountData={targetAccountData}
+            setTargetAccountData={setTargetAccountData}
             onSubmit={onSubmit}
           />
         )}
         {type === "payBack" && (
-          <PayBackLeftPart type={type} onSubmit={onSubmit} />
+          <PayBackLeftPart type={type} onSubmit={onSubmit}/>
         )}
-        <RightPart operate={operate} listDatas={listData} />
+        <RightPart operate={operate} targetAccountData={targetAccountData}/>
       </div>
     </div>
   );
