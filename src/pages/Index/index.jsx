@@ -23,7 +23,7 @@ const Index = () => {
           Metamask
         </MetaMaskButton>
         <Button className={styles.button} width={300} onClick={onButtonClick}>
-          Im Token
+          ImToken
         </Button>
       </div>
     </div>
