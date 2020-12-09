@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {Button, Input} from "rimble-ui";
 import {Select} from "rimble-ui";
 
-const OpenLeverLeftPart = ({type, operate, setOperate, operateInfo, setOperateInfo, accountData, targetAccountData, setTargetAccountData, onSubmit}) => {
+const OpenLeverLeftPart = ({type, operate, setOperate, operateInfo, setOperateInfo, accountData, btcPrice, ethPrice, btcInterest, ethInterest,targetAccountData, setTargetAccountData, onSubmit}) => {
   const [asset, setAsset] = useState("BTC"); //  货币类型下拉框值: BTC or DAI
 
   const updatedTargetAccount = (newOperateInfo, asset) => {
@@ -37,6 +37,17 @@ const OpenLeverLeftPart = ({type, operate, setOperate, operateInfo, setOperateIn
     newOperateInfo.leverage = e.target.value;
     setOperateInfo(newOperateInfo);
     setTargetAccountData(updatedTargetAccount(newOperateInfo, asset));
+
+    let newAccountData = {...accountData};
+    newAccountData.balance.assets.BTC.value = btcPrice;
+    newAccountData.balance.assets.ETH.value = ethPrice;
+    newAccountData.debt.assets.BTC.value = btcPrice;
+    newAccountData.debt.assets.ETH.value = ethPrice;
+
+    newAccountData.debt.assets.BTC.interest = (btcInterest * 100).toFixed(2) + '%';
+    newAccountData.debt.assets.ETH.interest = (ethInterest * 100).toFixed(2) + '%';
+
+    setTargetAccountData(newAccountData);
   };
 
   // 执行
